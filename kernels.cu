@@ -286,7 +286,7 @@ void memcpy_ubench(int elements, int repeat){
     float4* d_src;
     float4* d_dst;
     double latency = 0.0f;
-    size_t size = elements * sizeof(float4);
+    size_t size = elements * sizeof(float);
 
     CHECK_CUDART(cudaMalloc(&d_src, size));
     CHECK_CUDART(cudaMalloc(&d_dst, size));
@@ -294,7 +294,7 @@ void memcpy_ubench(int elements, int repeat){
     curandGenerator_t gen;
     CHECK_CURAND(curandCreateGenerator(&gen, CURAND_RNG_PSEUDO_DEFAULT));
     CHECK_CURAND(curandSetPseudoRandomGeneratorSeed(gen, 1234ULL));
-    CHECK_CURAND(curandGenerateUniform(gen, (float*)d_src, elements*4));
+    CHECK_CURAND(curandGenerateUniform(gen, (float*)d_src, elements));
 
     for(int i=0; i<(repeat+1); i++){
         double start = read_timer();
